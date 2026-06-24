@@ -38,7 +38,7 @@ jobs:
       environment: prod
       tfvars_file: Environment/prod.tfvars
       rgname: terraformbackendRG
-      saname: tfbackendstorag1234987
+      saname: tfbackendstorag12349871
       scname: tfbackendcontainer
       key: prod.tfstate
 

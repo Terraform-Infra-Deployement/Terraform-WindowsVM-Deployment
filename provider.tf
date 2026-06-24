@@ -13,11 +13,11 @@ provider "azurerm" {
 
 }
 
-# terraform {
-#   backend "azurerm" {
-#     resource_group_name  = "terraformbackendRG"
-#     storage_account_name = "tfbackendstorag1234987 "
-#     container_name       = "tfbackendcontainer"
-#     key                  = "first.tfstate"
-#   }
-# }
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "terraformbackendRG"
+    storage_account_name = "tfbackendstorag12349871"
+    container_name       = "tfbackendcontainer"
+    key                  = "first.tfstate"
+  }
+}
