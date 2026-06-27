@@ -1,29 +1,29 @@
 variable "resourcegroupdetails" {
   type = map(object({
-    name = string
+    name     = string
     location = string
   }))
 }
 
 variable "vnetdetails" {
   type = map(object({
-    name = string
-    address_space = list(string)
+    name                = string
+    address_space       = list(string)
     resource_group_name = string
-    location = string
+    location            = string
   }))
 }
 
 variable "windowsvmparameters" {
   type = map(object({
-    name = string
-    size = string
-    location = string
-    resource_group_name = string
+    name                 = string
+    size                 = string
+    location             = string
+    resource_group_name  = string
     virtual_network_name = string
-    subnetname = string
-    osdisktype = string
-    vnetrgname = string
+    subnetname           = string
+    osdisktype           = string
+    vnetrgname           = string
   }))
 }
 

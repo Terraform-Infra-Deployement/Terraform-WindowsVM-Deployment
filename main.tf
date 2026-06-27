@@ -1,17 +1,17 @@
 module "rgdeployment" {
-  for_each = var.resourcegroupdetails
-  source = "./Module/RG-Deployment"
-  rgname = each.value.name
+  for_each   = var.resourcegroupdetails
+  source     = "./Module/RG-Deployment"
+  rgname     = each.value.name
   rglocation = each.value.location
 }
 
 module "vnetmodule" {
-  for_each = var.vnetdetails
-  source = "./Module/VNET-Deployment"
-  vnetname = each.value.name
+  for_each          = var.vnetdetails
+  source            = "./Module/VNET-Deployment"
+  vnetname          = each.value.name
   vnet-addressspace = each.value.address_space
-  vnetrgname = each.value.resource_group_name
-  vnetrglocation = each.value.location
+  vnetrgname        = each.value.resource_group_name
+  vnetrglocation    = each.value.location
 }
 
 data "azurerm_subnet" "network_lookup" {
@@ -22,13 +22,13 @@ data "azurerm_subnet" "network_lookup" {
 }
 
 module "windows-vm" {
-  for_each = var.windowsvmparameters
-  source = "./Module/Windows-VM-Deployment"
-  vmname = each.value.name
-  vmrgname = each.value.resource_group_name
-  vmlocation = each.value.location
-  os_disk_type = each.value.osdisktype
-  vmsize = each.value.size
+  for_each        = var.windowsvmparameters
+  source          = "./Module/Windows-VM-Deployment"
+  vmname          = each.value.name
+  vmrgname        = each.value.resource_group_name
+  vmlocation      = each.value.location
+  os_disk_type    = each.value.osdisktype
+  vmsize          = each.value.size
   enterprise_tags = var.enterprise_tags
-  subnet_id = data.azurerm_subnet.network_lookup[each.key].id
+  subnet_id       = data.azurerm_subnet.network_lookup[each.key].id
 }
