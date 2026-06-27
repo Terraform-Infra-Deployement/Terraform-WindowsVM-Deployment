@@ -55,5 +55,6 @@ windowsvmparameters = {
     location             = "westus2"
     vnetrgname           = "virtual-network-rg"
   }
-  
+
+
 }
