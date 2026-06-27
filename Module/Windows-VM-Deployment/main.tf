@@ -18,8 +18,8 @@ resource "azurerm_windows_virtual_machine" "vm" {
   size                = var.vmsize
   tags                = var.enterprise_tags
 
-  admin_username      = "azureadmin"
-  admin_password      = "P@$$w0rd1234!" # Retrieve via Key Vault data block in production
+  admin_username = "azureadmin"
+  admin_password = "P@$$w0rd1234!" # Retrieve via Key Vault data block in production
   network_interface_ids = [
     azurerm_network_interface.nic.id,
   ]
