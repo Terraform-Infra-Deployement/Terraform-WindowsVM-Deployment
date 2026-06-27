@@ -1,13 +1,13 @@
 module "rgdeployment" {
   for_each   = var.resourcegroupdetails
-  source     = "./Module/RG-Deployment"
+  source     = "../Module/RG-Deployment"
   rgname     = each.value.name
   rglocation = each.value.location
 }
 
 module "vnetmodule" {
   for_each          = var.vnetdetails
-  source            = "./Module/VNET-Deployment"
+  source            = "../Module/VNET-Deployment"
   vnetname          = each.value.name
   vnet-addressspace = each.value.address_space
   vnetrgname        = each.value.resource_group_name
@@ -23,7 +23,7 @@ data "azurerm_subnet" "network_lookup" {
 
 module "windows-vm" {
   for_each        = var.windowsvmparameters
-  source          = "./Module/Windows-VM-Deployment"
+  source          = "../Module/Windows-VM-Deployment"
   vmname          = each.value.name
   vmrgname        = each.value.resource_group_name
   vmlocation      = each.value.location
