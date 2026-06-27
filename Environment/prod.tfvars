@@ -56,5 +56,4 @@ windowsvmparameters = {
     vnetrgname           = "virtual-network-rg"
   }
 
-
 }
