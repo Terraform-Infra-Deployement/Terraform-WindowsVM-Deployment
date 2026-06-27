@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Infra-RG-Deployment
+        working-directory: NEW FOLDER
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Infra-RG-Deployment
+        working-directory: NEW FOLDER
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -102,7 +102,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Infra-RG-Deployment
+        working-directory: NEW FOLDER
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -132,7 +132,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Infra-RG-Deployment
+        working-directory: NEW FOLDER
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -164,7 +164,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tf-plan-${{ inputs.environment }}
-          path: Infra-RG-Deployment/plan-${{ inputs.environment }}.tfplan
+          path: NEW FOLDER/plan-${{ inputs.environment }}.tfplan
           if-no-files-found: error
 
   apply:
@@ -174,7 +174,7 @@ jobs:
     environment: ${{ inputs.environment }}
     defaults:
       run:
-        working-directory: Infra-RG-Deployment
+        working-directory: NEW FOLDER
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -199,7 +199,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: tf-plan-${{ inputs.environment }}
-          path: Infra-RG-Deployment
+          path: NEW FOLDER
       - name: Terraform apply
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -215,7 +215,7 @@ jobs:
     environment: ${{ inputs.environment }}
     defaults:
       run:
-        working-directory: Infra-RG-Deployment
+        working-directory: NEW FOLDER
     steps:
       - name: Checkout
         uses: actions/checkout@v4
