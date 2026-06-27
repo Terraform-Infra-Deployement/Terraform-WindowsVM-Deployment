@@ -159,7 +159,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_USE_OIDC: true
-        run: terraform plan -var-file="../Environment/${{ inputs.tfvars_file }}" -out="plan-${{ inputs.environment }}.tfplan"
+        run: terraform plan -var-file="../${{ inputs.tfvars_file }}" -out="plan-${{ inputs.environment }}.tfplan"
       - name: Upload plan
         uses: actions/upload-artifact@v4
         with:
