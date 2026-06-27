@@ -171,7 +171,7 @@ jobs:
     needs: [plan, validate, fmt, init]
     if: ${{ always() && inputs.runApply && ((inputs.runPlan && needs.plan.result == 'success') || (!inputs.runPlan && inputs.runValidate && needs.validate.result == 'success') || (!inputs.runPlan && !inputs.runValidate && inputs.runFmt && needs.fmt.result == 'success') || (!inputs.runPlan && !inputs.runValidate && !inputs.runFmt && needs.init.result == 'success')) }}
     runs-on: ubuntu-latest
-    Compute-Resources: ${{ inputs.Compute-Resources }}
+    environment: ${{ inputs.Compute-Resources }}
     defaults:
       run:
         working-directory: Compute-Resources
@@ -212,7 +212,7 @@ jobs:
     needs: [apply, plan, validate, fmt, init]
     if: ${{ always() && inputs.runDestroy && ((inputs.runApply && needs.apply.result == 'success') || (!inputs.runApply && inputs.runPlan && needs.plan.result == 'success') || (!inputs.runApply && !inputs.runPlan && inputs.runValidate && needs.validate.result == 'success') || (!inputs.runApply && !inputs.runPlan && !inputs.runValidate && inputs.runFmt && needs.fmt.result == 'success') || (!inputs.runApply && !inputs.runPlan && !inputs.runValidate && !inputs.runFmt && needs.init.result == 'success')) }}
     runs-on: ubuntu-latest
-    Compute-Resources: ${{ inputs.Compute-Resources }}
+    environment: ${{ inputs.Compute-Resources }}
     defaults:
       run:
         working-directory: Compute-Resources
