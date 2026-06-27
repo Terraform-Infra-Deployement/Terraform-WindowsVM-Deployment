@@ -3,7 +3,7 @@ name: terraform-multi
 on:
   workflow_call:
     inputs:
-      environment:
+      Compute-Resources:
         required: true
         type: string
       tfvars_file:
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Environment
+        working-directory: Compute-Resources
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Environment
+        working-directory: Compute-Resources
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -102,7 +102,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Environment
+        working-directory: Compute-Resources
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -132,7 +132,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Environment
+        working-directory: Compute-Resources
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -159,22 +159,22 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_USE_OIDC: true
-        run: terraform plan -var-file="../${{ inputs.tfvars_file }}" -out="plan-${{ inputs.environment }}.tfplan"
+        run: terraform plan -var-file="../${{ inputs.tfvars_file }}" -out="plan-${{ inputs.Compute-Resources }}.tfplan"
       - name: Upload plan
         uses: actions/upload-artifact@v4
         with:
-          name: tf-plan-${{ inputs.environment }}
-          path: Environment/plan-${{ inputs.environment }}.tfplan
+          name: tf-plan-${{ inputs.Compute-Resources }}
+          path: Compute-Resources/plan-${{ inputs.Compute-Resources }}.tfplan
           if-no-files-found: error
 
   apply:
     needs: [plan, validate, fmt, init]
     if: ${{ always() && inputs.runApply && ((inputs.runPlan && needs.plan.result == 'success') || (!inputs.runPlan && inputs.runValidate && needs.validate.result == 'success') || (!inputs.runPlan && !inputs.runValidate && inputs.runFmt && needs.fmt.result == 'success') || (!inputs.runPlan && !inputs.runValidate && !inputs.runFmt && needs.init.result == 'success')) }}
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    Compute-Resources: ${{ inputs.Compute-Resources }}
     defaults:
       run:
-        working-directory: Environment
+        working-directory: Compute-Resources
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -198,24 +198,24 @@ jobs:
       - name: Download plan
         uses: actions/download-artifact@v4
         with:
-          name: tf-plan-${{ inputs.environment }}
-          path: Environment
+          name: tf-plan-${{ inputs.Compute-Resources }}
+          path: Compute-Resources
       - name: Terraform apply
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_USE_OIDC: true
-        run: terraform apply -auto-approve plan-${{ inputs.environment }}.tfplan
+        run: terraform apply -auto-approve plan-${{ inputs.Compute-Resources }}.tfplan
 
   destroy:
     needs: [apply, plan, validate, fmt, init]
     if: ${{ always() && inputs.runDestroy && ((inputs.runApply && needs.apply.result == 'success') || (!inputs.runApply && inputs.runPlan && needs.plan.result == 'success') || (!inputs.runApply && !inputs.runPlan && inputs.runValidate && needs.validate.result == 'success') || (!inputs.runApply && !inputs.runPlan && !inputs.runValidate && inputs.runFmt && needs.fmt.result == 'success') || (!inputs.runApply && !inputs.runPlan && !inputs.runValidate && !inputs.runFmt && needs.init.result == 'success')) }}
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    Compute-Resources: ${{ inputs.Compute-Resources }}
     defaults:
       run:
-        working-directory: Environment
+        working-directory: Compute-Resources
     steps:
       - name: Checkout
         uses: actions/checkout@v4
